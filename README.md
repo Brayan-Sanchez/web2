@@ -365,11 +365,3 @@ Donde `<hash>` es la contraseña hasheada con bcrypt. Para generar un hash: usa 
 - Antes de hacer PR: `go fmt`, `gofmt`, y `npm run build` (si cambias frontend).
 
 ---
-## 10) Contacto / ayuda
-Si quieres, puedo:
-- Modificar el backend para leer `DATABASE_URL` y `JWT_SECRET` desde variables de entorno.
-- Añadir un `docker-compose.yml` para orquestar Postgres + backend + frontend.
-- Crear un `README` más breve o traducir partes específicas.
-
----
-Gracias — si quieres que añada el `docker-compose` o que cambie el código para usar variables de entorno, dímelo y lo hago.
