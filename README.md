@@ -63,7 +63,7 @@ Las instrucciones siguientes están redactadas para Microsoft Windows (PowerShel
 
 ```powershell
 cd C:\Users\TuUsuario\Projects
-git clone <URL_DEL_REPOSITORIO> quizforge
+git clone <[URL_DEL_REPOSITORIO](https://github.com/Brayan-Sanchez/web2)> quizforge
 cd quizforge
 ```
 
