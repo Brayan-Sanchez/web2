@@ -1,0 +1,41 @@
+## Node
+/frontend/node_modules/
+/node_modules/
+/frontend/build/
+
+## Go
+/backend/bin/
+/bin/
+/pkg/
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+## Env
+.env
+.env.local
+.env.*.local
+
+## Editor / OS
+.DS_Store
+.vscode/
+.idea/
+thumbs.db
+
+## Logs
+*.log
+
+## Coverage
+coverage.out
+
+## Misc
+dist/
+build/
+node_modules/
+*.cache
+
+## Ignore secrets if accidentally present
+secrets.json

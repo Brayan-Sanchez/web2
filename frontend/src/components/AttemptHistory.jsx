@@ -15,13 +15,13 @@ function AttemptHistory() {
   }, []);
 
   const intentosFiltrados = attempts.filter((a) => {
-    if (filter === "correctos") return a.is_correct;
-    if (filter === "incorrectos") return !a.is_correct;
+    if (filter === "correctos") return a.isCorrect;
+    if (filter === "incorrectos") return !a.isCorrect;
     return true;
   });
 
   const total = intentosFiltrados.length;
-  const correctos = intentosFiltrados.filter((a) => a.is_correct).length;
+  const correctos = intentosFiltrados.filter((a) => a.isCorrect).length;
   const porcentaje = total > 0 ? Math.round((correctos / total) * 100) : 0;
 
   return (
@@ -52,22 +52,27 @@ function AttemptHistory() {
             <li
               key={a.id}
               className={`border p-4 rounded mb-4 shadow-sm ${
-                a.is_correct ? "border-green-400 bg-green-50 dark:bg-green-900" : "border-red-400 bg-red-50 dark:bg-red-900"
+                a.isCorrect ? "border-green-400 bg-green-50 dark:bg-green-900" : "border-red-400 bg-red-50 dark:bg-red-900"
               }`}
             >
               <p className="font-semibold mb-1">{a.question}</p>
-              <p>Respuesta seleccionada: <span className="font-medium">{a.selected_answer}</span></p>
+              <p>
+                Respuesta seleccionada:{" "}
+                <span className="font-medium">{a.selectedAnswer}</span>
+              </p>
               <p>
                 Resultado:{" "}
-                <span className={a.is_correct ? "text-green-600" : "text-red-600"}>
-                  {a.is_correct ? "✅ Correcto" : "❌ Incorrecto"}
+                <span className={a.isCorrect ? "text-green-600" : "text-red-600"}>
+                  {a.isCorrect ? "✅ Correcto" : "❌ Incorrecto"}
                 </span>
               </p>
               <p className="text-sm text-gray-500 mt-1">
-                Respondido el: {new Date(a.answered_at).toLocaleString()}
+                Respondido el: {new Date(a.answeredAt).toLocaleString()}
               </p>
               {a.username && (
-                <p className="text-sm text-gray-600 dark:text-gray-400">Usuario: {a.username}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Usuario: {a.username}
+                </p>
               )}
             </li>
           ))}

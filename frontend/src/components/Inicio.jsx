@@ -1,58 +1,51 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Inicio() {
-  const [categoria, setCategoria] = useState("general");
-  const [dificultad, setDificultad] = useState("media");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const comenzarQuiz = () => {
-    navigate(`/quiz?categoria=${categoria}&dificultad=${dificultad}`);
+    navigate("/quiz");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 flex items-center justify-center px-4 py-10">
-      <div className="max-w-xl w-full bg-white rounded-3xl shadow-2xl p-8 text-center animate-fade-in">
-        <h1 className="text-4xl font-bold text-indigo-700 mb-4">🧠 QuizForge</h1>
-        <p className="text-lg text-gray-700 mb-6">Selecciona una categoría y dificultad para comenzar:</p>
-
-        {/* Categoría */}
-        <div className="mb-6 text-left">
-          <label className="block text-sm font-semibold text-gray-600 mb-2">Categoría:</label>
-          <select
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="general">Cultura general</option>
-            <option value="videojuegos">Videojuegos</option>
-            <option value="historia">Historia</option>
-            <option value="arte">Arte</option>
-            <option value="ciencia">Ciencia</option>
-          </select>
+    <div className="fixed inset-0 flex items-stretch overflow-hidden">
+      {/* LEFT SIDE: IMAGE + MENSAJE */}
+      <div className="w-full md:w-1/2 relative">
+        <img
+          src="https://images.unsplash.com/photo-1581091870622-1e7b1c7c5b6b"
+          alt="Bienvenida QuizForge"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/80 to-transparent flex items-center justify-center text-center p-8">
+          <div>
+            <h1 className="text-white text-4xl font-extrabold mb-4">Bienvenido a QuizForge</h1>
+            <p className="text-white text-lg">Explora, aprende y reta tu mente. Tu viaje comienza ahora 🚀</p>
+          </div>
         </div>
+      </div>
 
-        {/* Dificultad */}
-        <div className="mb-8 text-left">
-          <label className="block text-sm font-semibold text-gray-600 mb-2">Dificultad:</label>
-          <select
-            value={dificultad}
-            onChange={(e) => setDificultad(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      {/* RIGHT SIDE: BOTÓN DE INICIO */}
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white dark:bg-gray-900 px-10">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-indigo-700 dark:text-indigo-400 mb-6">¿Listo para comenzar?</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-8">
+            Accede al cuestionario y demuestra tu conocimiento. ¡Es rápido, divertido y sin complicaciones!
+          </p>
+          <button
+            onClick={comenzarQuiz}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-semibold px-6 py-3 rounded-full shadow-md transition transform hover:scale-105"
           >
-            <option value="facil">Fácil</option>
-            <option value="media">Media</option>
-            <option value="dificil">Difícil</option>
-          </select>
+            🧠 Empezar cuestionario
+          </button>
         </div>
-
-        {/* Botón de inicio */}
-        <button
-          onClick={comenzarQuiz}
-          className="bg-indigo-600 text-white text-lg font-semibold px-6 py-3 rounded-full hover:bg-indigo-700 transition-all duration-200 shadow-md"
-        >
-          🚀 Comenzar cuestionario
-        </button>
       </div>
     </div>
   );
