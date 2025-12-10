@@ -2,22 +2,31 @@ package main
 
 import (
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwtKey = []byte("2435")
+var jwtKey []byte
+
+func init() {
+	secret := os.Getenv("JWT_SECRET")
+	if secret == "" {
+		secret = "2435"
+	}
+	jwtKey = []byte(secret)
+}
 
 // Generar token con email, rol y userID
 
 func GenerateToken(email string, role string, userID int) (string, error) {
 	claims := jwt.MapClaims{
 		"email": email,
-		"role":  role, 
+		"role":  role,
 		"user":  userID,
-		"exp":   time.Now().Add(24 * time.Hour).Unix(), 
+		"exp":   time.Now().Add(24 * time.Hour).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(jwtKey)

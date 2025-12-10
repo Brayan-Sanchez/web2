@@ -11,14 +11,14 @@ type User struct {
 
 // Pregunta almacenada
 type Question struct {
-	ID               int      `json:"id"`
+	ID               int      `json:"id"` 
 	Question         string   `json:"question"`
 	CorrectAnswer    string   `json:"correct_answer"`
 	IncorrectAnswers []string `json:"incorrect_answers"`
 }
 
 // Intento/respuesta del usuario
-// Intento/respuesta del usuario
+
 type AttemptAnswer struct {
 	UserID         int    `json:"userId"`
 	QuestionID     int    `json:"questionId"`

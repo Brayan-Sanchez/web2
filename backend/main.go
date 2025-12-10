@@ -15,18 +15,25 @@ func main() {
 	// Middleware CORS + Authorization
 	r.Use(func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+			// Permite orígenes comunes en local; para producción agrega tu dominio/frontend
+			origin := r.Header.Get("Origin")
+			if origin == "" {
+				origin = "*"
+			}
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			w.Header().Set("Vary", "Origin")
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
 			w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
-			if r.Method == "OPTIONS" {
-				w.WriteHeader(http.StatusOK)
+			w.Header().Set("Access-Control-Max-Age", "86400")
+			if r.Method == http.MethodOptions {
+				w.WriteHeader(http.StatusNoContent)
 				return
 			}
 			h.ServeHTTP(w, r)
 		})
 	})
 
-	// 🔓 Rutas públicas
+	//  Rutas públicas
 	r.HandleFunc("/register", RegisterHandler).Methods("POST", "OPTIONS")
 	r.HandleFunc("/login", LoginHandler).Methods("POST", "OPTIONS")
 	r.HandleFunc("/questions/fetch", FetchAndSaveQuestions).Methods("GET", "OPTIONS")
@@ -40,7 +47,7 @@ func main() {
 	r.HandleFunc("/admin/users/{id}", AuthMiddleware(UpdateUserRole, "admin")).Methods("PUT", "PATCH", "OPTIONS")
 	r.HandleFunc("/admin/users/{id}", AuthMiddleware(DeleteUser, "admin")).Methods("DELETE", "OPTIONS")
 
-	// 🔐 Rutas protegidas
+	//  Rutas protegidas
 	r.HandleFunc("/admin/historial", AuthMiddleware(GetAttemptsAdmin, "admin")).Methods("GET", "OPTIONS")
 	r.HandleFunc("/user/historial", AuthMiddleware(GetUserAttempts, "user")).Methods("GET", "OPTIONS") // ✅ nueva
 

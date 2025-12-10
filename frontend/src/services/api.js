@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 
 // Preguntas con filtros
@@ -13,7 +13,7 @@ export async function fetchQuestions() {
 
 export async function fetchSummary() {
   const token = localStorage.getItem("token");
-  const res = await fetch("http://localhost:8080/user/resumen", {
+  const res = await fetch(`${BASE_URL}/user/resumen`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	_ "github.com/lib/pq"
 )
@@ -10,7 +11,10 @@ import (
 var DB *sql.DB
 
 func InitDB() {
-	connStr := "postgres://postgres:2234@localhost:5432/quizforge_db?sslmode=disable"
+	connStr := os.Getenv("DATABASE_URL")
+	if connStr == "" {
+		connStr = "postgres://postgres:2234@localhost:5432/quizforge_db?sslmode=disable"
+	}
 
 	var err error
 	DB, err = sql.Open("postgres", connStr)
@@ -67,7 +71,6 @@ func createTables() {
 		}
 	}
 
-	// Ensure username column exists (in case DB was created earlier without it)
 	if _, err := DB.Exec(`ALTER TABLE users ADD COLUMN IF NOT EXISTS username TEXT`); err != nil {
 		log.Println("⚠️ No se pudo asegurar columna username:", err)
 	}

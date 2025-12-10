@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
+
 export default function AdminPanel() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
@@ -14,7 +16,7 @@ export default function AdminPanel() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No autenticado: inicia sesión como admin para ver usuarios");
 
-      const res = await fetch("http://localhost:8080/admin/users", {
+      const res = await fetch(`${BASE_URL}/admin/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) {
@@ -37,7 +39,7 @@ export default function AdminPanel() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8080/admin/users", {
+      const res = await fetch(`${BASE_URL}/admin/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(newUser),
@@ -54,7 +56,7 @@ export default function AdminPanel() {
   const handleUpdateRole = async (id, role) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:8080/admin/users/${id}`, {
+      const res = await fetch(`${BASE_URL}/admin/users/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ role }),
@@ -71,7 +73,7 @@ export default function AdminPanel() {
     if (!window.confirm("¿Eliminar usuario? Esta acción es irreversible.")) return;
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:8080/admin/users/${id}`, {
+      const res = await fetch(`${BASE_URL}/admin/users/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -84,8 +86,8 @@ export default function AdminPanel() {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-auto">
-      <div className="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-10">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-6xl mx-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 sm:p-10">
         <h2 className="text-4xl font-extrabold mb-8 text-center text-indigo-700 dark:text-indigo-400">
           🛠️ Panel de Administrador
         </h2>
@@ -127,7 +129,7 @@ export default function AdminPanel() {
                          text-gray-900 dark:text-white 
                          placeholder-gray-400"
             />
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <select
                 value={newUser.role}
                 onChange={(e)=>setNewUser({...newUser,role:e.target.value})}
