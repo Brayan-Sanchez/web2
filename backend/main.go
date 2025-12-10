@@ -15,7 +15,6 @@ func main() {
 	// Middleware CORS + Authorization
 	r.Use(func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			// Permite orígenes comunes en local; para producción agrega tu dominio/frontend
 			origin := r.Header.Get("Origin")
 			if origin == "" {
 				origin = "*"
@@ -41,7 +40,6 @@ func main() {
 	r.HandleFunc("/attempts/answers", SaveAttemptAnswers).Methods("POST", "OPTIONS")
 	r.HandleFunc("/user/resumen", AuthMiddleware(GetUserSummary, "user")).Methods("GET", "OPTIONS")
 
-	// Admin user management
 	r.HandleFunc("/admin/users", AuthMiddleware(GetUsers, "admin")).Methods("GET", "OPTIONS")
 	r.HandleFunc("/admin/users", AuthMiddleware(CreateUserAdmin, "admin")).Methods("POST", "OPTIONS")
 	r.HandleFunc("/admin/users/{id}", AuthMiddleware(UpdateUserRole, "admin")).Methods("PUT", "PATCH", "OPTIONS")

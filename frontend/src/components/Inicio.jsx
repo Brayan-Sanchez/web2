@@ -17,7 +17,7 @@ function Inicio() {
 
   return (
     <div className="fixed inset-0 flex items-stretch overflow-hidden">
-      {/* LEFT SIDE: IMAGE + MENSAJE */}
+      {/*  */}
       <div className="w-full md:w-1/2 relative">
         <img
           src="https://images.unsplash.com/photo-1581091870622-1e7b1c7c5b6b"
@@ -32,7 +32,7 @@ function Inicio() {
         </div>
       </div>
 
-      {/* RIGHT SIDE: BOTÓN DE INICIO */}
+      {/*  */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white dark:bg-gray-900 px-10">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-indigo-700 dark:text-indigo-400 mb-6">¿Listo para comenzar?</h2>

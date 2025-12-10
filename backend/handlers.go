@@ -180,7 +180,6 @@ func SaveAttemptAnswers(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("🧮 Guardando resumen para userID=%d: %d correctos, %d incorrectos", answers[0].UserID, correct, incorrect)
 
-	// First try update; if no rows updated, insert a new summary (avoids relying on unique constraint)
 	res, err := DB.Exec(`
 		UPDATE attempt_summary SET correct_count = $2, incorrect_count = $3 WHERE user_id = $1`,
 		answers[0].UserID, correct, incorrect)
@@ -203,7 +202,7 @@ func SaveAttemptAnswers(w http.ResponseWriter, r *http.Request) {
 	// Obtener username para devolver en la respuesta
 	var username string
 	row := DB.QueryRow(`SELECT username FROM users WHERE id = $1`, answers[0].UserID)
-	_ = row.Scan(&username) // si hay error, username quedará vacío
+	_ = row.Scan(&username) 
 
 	total := correct + incorrect
 	var percentage float64
@@ -374,8 +373,6 @@ func GetAttemptsAdmin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(attempts)
 }
-
-// ---------------- Admin: User management ----------------
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	rows, err := DB.Query(`SELECT id, email, username, role FROM users ORDER BY id`)

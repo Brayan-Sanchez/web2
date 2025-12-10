@@ -29,7 +29,7 @@ export default function Register() {
 
   return (
     <div className="fixed inset-0 flex items-stretch overflow-hidden">
-      {/* LEFT SIDE: IMAGE + WELCOME */}
+      {/* */}
       <div className="hidden md:flex w-1/2 relative">
         <img
           src="https://images.unsplash.com/photo-1523240795612-9a054b0db644"
@@ -44,7 +44,7 @@ export default function Register() {
         </div>
       </div>
 
-      {/* RIGHT SIDE: FORM */}
+      {/* R */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-gray-50 dark:bg-gray-900 px-10">
         <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
           <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100 text-center">Registro</h2>
@@ -52,7 +52,7 @@ export default function Register() {
           {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Email */}
+            {/*  */}
             <div className="flex items-center border rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500 bg-gray-50 dark:bg-gray-700">
               <FiMail className="text-blue-600 text-xl mr-3" />
               <input
@@ -64,7 +64,7 @@ export default function Register() {
               />
             </div>
 
-            {/* Username */}
+            {/*  */}
             <div className="flex items-center border rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500 bg-gray-50 dark:bg-gray-700">
               <FiUser className="text-blue-600 text-xl mr-3" />
               <input
@@ -76,7 +76,7 @@ export default function Register() {
               />
             </div>
 
-            {/* Password */}
+            {/*  */}
             <div className="flex items-center border rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500 bg-gray-50 dark:bg-gray-700">
               <FiLock className="text-blue-600 text-xl mr-3" />
               <input

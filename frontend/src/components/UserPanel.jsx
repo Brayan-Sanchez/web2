@@ -77,7 +77,7 @@ export default function UserPanel() {
         )}
       </section>
 
-      {/* Historial detallado con scroll y columnas */}
+      {/* Historial  */}
       <section>
         <h3 className="text-2xl font-semibold mb-6 text-center">📜 Historial detallado</h3>
 
@@ -137,7 +137,7 @@ export default function UserPanel() {
         )}
       </section>
 
-      {/* Acciones */}
+      {/* */}
       <div className="text-center mt-10">
         <Link
           to="/"

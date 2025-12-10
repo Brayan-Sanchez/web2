@@ -72,8 +72,6 @@ func AuthMiddleware(next http.HandlerFunc, requiredRole string) http.HandlerFunc
 				return
 			}
 		}
-
-		// Si todo está bien, continúa con el handler
 		next(w, r)
 	}
 }

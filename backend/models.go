@@ -1,15 +1,15 @@
 package main
 
-// Usuario del sistema
+
 type User struct {
 	ID       int    `json:"id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	Role     string `json:"role"` // "admin" o "user"
+	Role     string `json:"role"` 
 }
 
-// Pregunta almacenada
+
 type Question struct {
 	ID               int      `json:"id"` 
 	Question         string   `json:"question"`
@@ -17,7 +17,7 @@ type Question struct {
 	IncorrectAnswers []string `json:"incorrect_answers"`
 }
 
-// Intento/respuesta del usuario
+
 
 type AttemptAnswer struct {
 	UserID         int    `json:"userId"`
@@ -36,7 +36,6 @@ type AttemptView struct {
 	Username       string `json:"username"`
 }
 
-// Respuesta de OpenTDB
 type APIResponse struct {
 	Results []struct {
 		Question         string   `json:"question"`
